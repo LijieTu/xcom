@@ -16,7 +16,7 @@ const PostList: React.FC<PostListProps> = ({ posts, onDeletePost }) => {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="space-y-4">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} onDelete={onDeletePost} />
       ))}
