@@ -23,7 +23,7 @@ const CreatePost = () => {
       await createPost(
         title,
         content,
-        currentUser?.email || 'Anonymous',
+        currentUser?.displayName || currentUser?.email || 'Anonymous',
         currentUser?.uid || ''
       );
       setTitle('');

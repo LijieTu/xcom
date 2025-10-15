@@ -24,7 +24,9 @@ const Navbar = () => {
           <div className="flex gap-4 items-center">
             {currentUser ? (
               <>
-                <span className="text-sm">{currentUser.email}</span>
+                <span className="text-sm font-medium">
+                  {currentUser.displayName || currentUser.email}
+                </span>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded transition"

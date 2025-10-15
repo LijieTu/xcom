@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,6 +14,14 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!username.trim()) {
+      return setError('Username is required');
+    }
+
+    if (username.length < 3) {
+      return setError('Username must be at least 3 characters');
+    }
 
     if (password !== confirmPassword) {
       return setError('Passwords do not match');
@@ -25,7 +34,7 @@ const Register = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(email, password);
+      await signup(email, password, username);
       navigate('/');
     } catch (err: any) {
       setError('Failed to create account: ' + err.message);
@@ -44,6 +53,20 @@ const Register = () => {
           </div>
         )}
         <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Choose a username"
+              required
+              disabled={loading}
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Email
